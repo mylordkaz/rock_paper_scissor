@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rock paper scissor</title>
+</head>
+<body>
+    <script>
+        
+        // Get a random Choice from the computer 
+        function getComputerChoice (){
+            switch (Math.floor(Math.random()* 3)){
+                case 0 : 
+                return 'rock';
+                case 1 : 
+                    return 'paper';
+                case 2 :
+                    return 'scissor';
+            }
+        }
+        // single round function, you decide of the winner,
+        // with case-insensitive selection for the player.
+        function playRound (playerSelect, computerSelect){
+            playerSelect = playerSelect.toLowerCase();
+            computerSelect = computerSelect.toLowerCase();
+
+            if (playerSelect === computerSelect){
+                return "It's a tie, try again!"
+            } else if ( 
+                (playerSelect == "rock" && computerSelect === "scissor") ||
+                (playerSelect == "paper" && computerSelect === "rock") ||
+                (playerSelect == "scissor" && computerSelect == "paper")
+            ){
+                return `You win! ${playerSelect} beats ${computerSelect}.`
+                
+            } else { 
+              return `You lose! ${computerSelect} beats ${playerSelect}.`
+            }
+        }
+        
+        // the game function to play 5 rounds using a loop.
+        // also keeps the score of the player and computer.
+        // add of the prompt function for the player to make a choice.
+        function game(){
+            let playerScore = 0
+            let computerScore = 0
+
+            for (let round = 1; round <= 5; round++){
+                const playerSelect = prompt("Enter your choice (Rock, Paper, Scissor): ")
+                const computerSelect = getComputerChoice()
+                const result = playRound(playerSelect, computerSelect)
+                console.log(`Round ${round}: ${result}`)
+
+                if (result.includes("win")){
+                    playerScore++
+                } else if (result.includes("lose")){
+                    computerScore++
+                }
+            }
+            console.log(`Player Score : ${playerScore}`)
+            console.log(`Computer Score : ${computerScore}`)
+
+                //message for the final result of the game after comparing the scores.
+            if(playerScore > computerScore){
+                console.log("You Won the game!!!")
+            }else if (playerScore < computerScore){
+                console.log("You Lose the game, Try again!!!")
+            }else {
+                console.log("Tie! The game ended in a draw.")
+            }
+
+        }
+
+    </script>
+</body>
+</html>
